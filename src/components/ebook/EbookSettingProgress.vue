@@ -92,10 +92,10 @@ export default {
       if (sectionInfo && sectionInfo.href) {
         this.currentBook.rendition.display(sectionInfo.href).then(() => {
           this.refreshLocation()
-          // })
-          // this.display(sectionInfo.href).then(() => {
-          //   this.refreshLocation()
         })
+        // this.display(sectionInfo.href).then(() => {
+        //   this.refreshLocation()
+        // })
       }
     },
     getReadTimeText() {
