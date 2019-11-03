@@ -1,5 +1,5 @@
 import { mapGetters, mapActions } from "vuex";
-import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book';
+import { themeList, addCss, removeAllCss } from './book';
 
 import { saveLocation } from './localStorage'
 
@@ -16,10 +16,7 @@ export const ebookMixin = {
       'defaultTheme',
       'bookAvailable',
       'progress',
-      'section',
-      'cover',
-      'metadata',
-      'navigation'
+      'section'
     ]),
     themeList() {
       return themeList(this)
@@ -37,10 +34,7 @@ export const ebookMixin = {
       'setDefaultTheme',
       'setBookAvailable',
       'setProgress',
-      'setSection',
-      'setCover',
-      'setMetadata',
-      'setNavigation'
+      'setSection'
     ]),
     initGobalStyle() {
       removeAllCss()
@@ -62,23 +56,14 @@ export const ebookMixin = {
           break;
       }
     },
-    // 渲染完成后，刷新当前位置
     refreshLocation() {
-      //获取阅读进度百分比
       const currentLocation = this.currentBook.rendition.currentLocation()
-      if (currentLocation && currentLocation.start) {
-        const startCfi = currentLocation.start.cfi
-        //获取本章节的开始位置
-        const progress = this.currentBook.locations.percentageFromCfi(startCfi)
-        //进度百分比切换
-        this.setProgress(Math.floor(progress * 100))
-
-        this.setSection(currentLocation.start.index)
-        //阅读进度的保存
-        saveLocation(this.fileName, startCfi)
-      }
+      const startCfi = currentLocation.start.cfi
+      const progress = this.currentBook.locations.percentageFromCfi(startCfi)
+      this.setProgress(Math.floor(progress * 100))
+      this.setSection(currentLocation.start.index)
+      saveLocation(this.fileName, startCfi)
     },
-    //
     display(target, cb) {
       if (target) {
         this.currentBook.rendition.display(target).then(() => {
@@ -92,14 +77,5 @@ export const ebookMixin = {
         })
       }
     },
-    hideBar() {
-      this.setTitleVisible(false)
-      this.setVisible(-1)
-      this.setFontFamilyVisible(false)
-    },
-    //获取阅读时间
-    getReadTimeText() {
-      return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
-    }
   }
 }

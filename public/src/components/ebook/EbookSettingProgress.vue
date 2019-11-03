@@ -37,19 +37,18 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-// import { getReadTime } from '../../utils/localStorage.js'
+import { getReadTime } from '../../utils/localStorage.js'
 export default {
   mixins: [ebookMixin],
   computed: {
-    //章节名称获取
     getSectionName() {
-      // if (this.section) {
-      //   const sectionInfo = this.currentBook.section(this.section)
-      //   if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
-      //     return this.currentBook.navigation.get(sectionInfo.href).label
-      //   }
-      // }
-      return this.section ? this.navigation[this.section].label : ''
+      if (this.section) {
+        const sectionInfo = this.currentBook.section(this.section)
+        if (sectionInfo && sectionInfo.href) {
+          return this.currentBook.navigation.get(sectionInfo.href).label
+        }
+      }
+      return ''
     }
   },
   methods: {
@@ -70,7 +69,6 @@ export default {
       // this.currentBook.rendition.display(cfi)
       this.display(cfi)
     },
-    //进度条颜色切换
     updateProgress() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
     },
@@ -89,7 +87,6 @@ export default {
         })
       }
     },
-    //章节展示
     displaySection() {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
@@ -101,9 +98,19 @@ export default {
         // })
       }
     },
-
+    getReadTimeText() {
+      // console.log(this.$t('book'))  获取当前阅读时间
+      return this.$t('book.haveRead').replace('$1', this.getReadTimeByMin(this.fileName))
+    },
+    getReadTimeByMin() {
+      const readTime = getReadTime(this.fileName)
+      if (!readTime) {
+        return 0
+      } else {
+        return Math.ceil(readTime / 60)
+      }
+    }
   },
-  //
   updated() {
     this.updateProgress()
   },
@@ -113,7 +120,7 @@ export default {
 @import "../../assets/style/global.scss";
 .setting-wrapper {
   position: absolute;
-  bottom: px2rem(46);
+  bottom: px2rem(48);
   left: 0;
   z-index: 160;
   width: 100%;

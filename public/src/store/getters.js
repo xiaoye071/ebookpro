@@ -9,9 +9,6 @@ const book = {
   defaultTheme: state => state.book.defaultTheme,
   bookAvailable: state => state.book.bookAvailable,
   progress: state => state.book.progress,
-  section: state => state.book.section,
-  cover: state => state.book.cover,
-  metadata: state => state.book.metadata,
-  navigation: state => state.book.navigation
+  section: state => state.book.section
 };
 export default book;

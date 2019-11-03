@@ -27,13 +27,3 @@ $ratio: 375/10;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-@mixin ellipsis2($line) {
-  display: -webkit-box;
-  -webkit-box-orient: vertical; //垂直
-  -webkit-line-clamp: $line; //行
-  white-space: normal; //可以换行
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: keep-all; //整个单词才能换行
-}

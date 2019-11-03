@@ -1,5 +1,3 @@
-// import Navigation from "epubjs/types/navigation";
-
 const actions = {
   setFileName: ({ commit }, fileName) => {
     return commit("SET_FILANAME", fileName);
@@ -33,15 +31,6 @@ const actions = {
   },
   setSection: ({ commit }, section) => {
     return commit("SET_SECTION", section)
-  },
-  setCover: ({ commit }, cover) => {
-    return commit("SET_COVER", cover)
-  },
-  setMetadata: ({ commit }, metadata) => {
-    return commit('SET_METADATA', metadata)
-  },
-  setNavigation: ({ commit }, Navigation) => {
-    return commit('SET_NAVIGATION', Navigation)
   }
 }
 

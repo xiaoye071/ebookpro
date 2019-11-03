@@ -89,10 +89,3 @@ export function getReadTime(fileName) {
 export function saveReadTime(fileName, theme) {
   setBookObject(fileName, 'time', theme)
 }
-//封面获取
-export function getCover(fileName) {
-  return getBookObject(fileName, 'cover')
-}
-export function saveCover(fileName, cover) {
-  setBookObject(fileName, 'cover', cover)
-}

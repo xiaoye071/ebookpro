@@ -11,10 +11,7 @@ const book = {
     defaultTheme: 'Default',//主题
     progress: 0,//阅读进度
     bookAvailable: false,//进度条是否处于可用状态
-    section: 0,//章节
-    cover: null,//封面
-    navigation: null,//导航信息
-    metadata: null,//作者，标题信息
+    section: 0,//进度跳转区
   },
   mutations: {
     'SET_FILANAME': (state, fileName) => {
@@ -51,15 +48,6 @@ const book = {
     },
     'SET_SECTION': (state, section) => {
       state.section = section
-    },
-    'SET_COVER': (state, cover) => {
-      state.cover = cover
-    },
-    'SET_METADATA': (state, metadata) => {
-      state.metadata = metadata
-    },
-    'SET_NAVIGATION': (state, navigation) => {
-      state.navigation = navigation
     }
   },
   // actions: {

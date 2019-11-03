@@ -65,7 +65,7 @@ export default {
 @import "../../assets/style/global.scss";
 .setting-wrapper {
   position: absolute;
-  bottom: px2rem(46);
+  bottom: px2rem(48);
   left: 0;
   z-index: 190;
   display: flex;

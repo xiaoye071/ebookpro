@@ -16,10 +16,8 @@ import {
   saveFontSize,
   getTheme,
   saveTheme,
-  getLocation,
-
+  getLocation
 } from '../../utils/localStorage';
-import { flatten } from '../../utils/book';
 global.Epub = Epub;
 
 export default {
@@ -28,23 +26,15 @@ export default {
     prevPage() {
       if (this.rendition) {
         this.rendition.prev();
-        // this.hideTitleAndMenu()
         this.hideBar()
       }
     },
     nextPage() {
       if (this.rendition) {
         this.rendition.next();
-        // this.hideTitleAndMenu()
         this.hideBar()
       }
     },
-    // hideBar() {
-    //   // this.$store.dispatch("setTitleVisible", false)
-    //   this.setTitleVisible(false)
-    //   this.setVisible(-1)
-    //   this.setFontFamilyVisible(false)
-    // },
     toggleTitleAndMenu() {
       if (this.titleVisible) {
         this.setVisible(-1)
@@ -53,7 +43,12 @@ export default {
       // this.$store.dispatch("setTitleVisible", !this.titleVisible)
       this.setTitleVisible(!this.titleVisible)
     },
-
+    hideBar() {
+      // this.$store.dispatch("setTitleVisible", false)
+      this.setVisible(-1)
+      this.setFontFamilyVisible(false)
+      this.setTitleVisible(false)
+    },
     initFontfamily() {
       let font = getFontFamily(this.fileName)
       if (!font) {
@@ -100,7 +95,7 @@ export default {
         this.initFontfamily()
         this.initFontSize()
         this.initGobalStyle()
-        // this.refreshLocation()
+        this.refreshLocation()
       })
       // this.rendition.display().then(() => {
       //   this.initTheme()
@@ -144,37 +139,6 @@ export default {
         event.stopPropagation();
       });
     },
-    //封面信息
-    parseBook() {
-      console.log(this.book.loaded)
-      // console.log(this.book)
-      this.book.loaded.cover.then(cover => {
-        this.book.archive.createUrl(cover).then(url => {
-          this.setCover(url)
-        })
-      })
-      //
-      this.book.loaded.metadata.then(metadata => {
-        // console.log(metadata)
-        this.setMetadata(metadata)
-      })
-      //树状目录获取
-      this.book.loaded.navigation.then(nav => {
-        const navItem = flatten(nav.toc)//目录
-        // navigation = flatten(navigation)
-        function find(item, level = 0) {
-          if (!item.parent) {
-            return level
-          } else {
-            return find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
-          }
-        }
-        navItem.forEach(item => {
-          item.level = find(item)
-        })
-        this.setNavigation(navItem)
-      })
-    },
     initEpub() {
       // const url = "http://192.168.0.139:8081/epub/" + this.fileName + ".epub";
       const url = process.env.VUE_APP_RES_URL + '/epub/' + this.fileName + ".epub"
@@ -182,7 +146,6 @@ export default {
       this.setCurrentBook(this.book)
       this.initRenditon()
       this.initGesture()
-      this.parseBook()//封面渲染
       // 阅读器渲染完成并且获取资源问件时，调用register 方法   content 管理资源
       // this.rendition.hooks.content.register(contents => {
       //   Promise.all([   
@@ -203,52 +166,11 @@ export default {
     // const fileName = this.$route.params.fileName.split("|").join("/");
     this.setFileName(this.$route.params.fileName.split("|").join("/")).then(() => {
       this.initEpub();
-
     });
   }
 };
-
-// //test
-//         let navigation = [
-//           {            id: 1,
-//             subitems: [
-//               {
-//                 id: 2,
-//                 subitems: [
-//                   {
-//                     id: 3,
-//                     subitems: [],
-//                     parent: 2
-//                   },
-//                   {
-//                     id: 4,
-//                     subitems: [
-//                       {
-//                         id: 5,
-//                         subitems: []
-//                       }
-//                     ]
-//                   }
-//                 ],
-//                 parent: 1
-//               }]
-//           },
-//           {
-//             id: 6,
-//             subitems: []
-//           }
-//         ]
-
-      // function flatten(array) {
-
-      //   return [].concat(...array.map((item) => { return [].concat(item, ...flatten(item.subitems)) }))
-      // }
-      // console.log(flatten(nav))
-
 </script>
 
 <style  lang="scss" rel="stylesheet/scss" scoped>
 @import "../../assets/style/global.scss";
 </style>
-
-
