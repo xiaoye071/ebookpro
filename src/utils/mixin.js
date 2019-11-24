@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book';
 
-import { saveLocation } from './localStorage'
+import { saveLocation, getBookmark } from './localStorage'
 
 export const ebookMixin = {
   computed: {
@@ -19,7 +19,9 @@ export const ebookMixin = {
       'section',
       'cover',
       'metadata',
-      'navigation'
+      'navigation',
+      'offsetY',
+      'isBookmark'
     ]),
     themeList() {
       return themeList(this)
@@ -40,7 +42,9 @@ export const ebookMixin = {
       'setSection',
       'setCover',
       'setMetadata',
-      'setNavigation'
+      'setNavigation',
+      'setOffsetY',
+      'setIsBookmark'
     ]),
     initGobalStyle() {
       removeAllCss()
@@ -66,6 +70,7 @@ export const ebookMixin = {
     refreshLocation() {
       //获取阅读进度百分比
       const currentLocation = this.currentBook.rendition.currentLocation()
+      // console.log(currentLocation)
       if (currentLocation && currentLocation.start) {
         const startCfi = currentLocation.start.cfi
         //获取本章节的开始位置
@@ -76,6 +81,17 @@ export const ebookMixin = {
         this.setSection(currentLocation.start.index)
         //阅读进度的保存
         saveLocation(this.fileName, startCfi)
+        const bookmark = getBookmark(this.fileName)
+        console.log(bookmark)
+        if (bookmark) {
+          if (bookmark.some(item => item.cfi === startCfi)) {
+            this.setIsBookmark(true)
+          } else {
+            this.setIsBookmark(false)
+          }
+        } else {
+          this.setIsBookmark(false)
+        }
       }
     },
     //

@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- <span class="text">ADSSDDDDDEE</span> -->
-
     <router-view />
   </div>
 </template>
@@ -27,14 +25,14 @@
 //   return data
 // }
 export default {
-  computed:{
+  computed: {
     // ...mapGetters(['test']),
     // ...fn(['a','b','c'])
   },
   mounted() {
     // this.$store.dispatch("setTest", 9).then(() => {
-      // console.log(this.test)
-      // console.log(this.$store.state.book.test);
+    // console.log(this.test)
+    // console.log(this.$store.state.book.test);
     // });
     // console.log(this.a,this.b,this.c)
   }
@@ -48,11 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style lang="scss" scoped>
-
-// @import "./assets/style/global"; 
-#app{
-  width:100%;
+// @import "./assets/style/global";
+#app {
+  width: 100%;
   height: 100%;
   overflow: hidden;
+  background: #7d8188;
 }
 </style>

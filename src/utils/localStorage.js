@@ -96,3 +96,10 @@ export function getCover(fileName) {
 export function saveCover(fileName, cover) {
   setBookObject(fileName, 'cover', cover)
 }
+//书签获取
+export function getBookmark(fileName) {
+  return getBookObject(fileName, 'bookmark')
+}
+export function saveBookmark(fileName, bookmark) {
+  setBookObject(fileName, 'bookmark', bookmark)
+}

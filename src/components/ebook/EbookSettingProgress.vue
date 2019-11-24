@@ -56,13 +56,13 @@ export default {
     onProgressChange(progress) {//
       this.setProgress(progress).then(() => {
         this.displayProgress()//获取分页数据 
-        this.updateProgress()//更新progress 进度条
+        this.updateProgressBg()//更新progress 进度条
       })
     },
     onProgressInput(progress) {//拖动过程中更新进度条，
       this.setProgress(progress).then(() => {
         this.displayProgress()
-        this.updateProgress()
+        this.updateProgressBg()
       })
     },
     displayProgress() {//分页显示
@@ -71,7 +71,7 @@ export default {
       this.display(cfi)
     },
     //进度条颜色切换
-    updateProgress() {
+    updateProgressBg() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
     },
     prevSection() {
@@ -105,7 +105,7 @@ export default {
   },
   //
   updated() {
-    this.updateProgress()
+    this.updateProgressBg()
   },
 }
 </script>

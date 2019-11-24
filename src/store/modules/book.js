@@ -15,6 +15,8 @@ const book = {
     cover: null,//封面
     navigation: null,//导航信息
     metadata: null,//作者，标题信息
+    offsetY: 0,//鼠标可划区域获取
+    isBookmark: null,//当前页是否为书签页
   },
   mutations: {
     'SET_FILANAME': (state, fileName) => {
@@ -60,6 +62,12 @@ const book = {
     },
     'SET_NAVIGATION': (state, navigation) => {
       state.navigation = navigation
+    },
+    'SET_OFFSETY': (state, offsetY) => {
+      state.offsetY = offsetY
+    },
+    'SET_IS_BOOKMARK': (state, isBookmark) => {
+      state.isBookmark = isBookmark
     }
   },
   // actions: {
