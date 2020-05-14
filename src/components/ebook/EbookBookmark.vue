@@ -38,14 +38,14 @@ export default {
       return {
         position: 'fixed',
         top: 0,
-        right: `${(window.innerWidth - this.$refs.bookmark.clientWidth) / 2}`
+        right: `${(window.innerWidth - this.$refs.bookmark.clientWidth) / 2}px`
       }
     }
   },
   watch: {
     offsetY(v) {
       if (!this.bookAvailable || this.titleVisible || this.visible >= 0) {
-        console.log(this.bookAvailable, this.titleVisible)
+        // console.log(this.bookAvailable, this.titleVisible)
         return
       }
       if (v >= this.height && v < this.threshold) {
@@ -59,16 +59,19 @@ export default {
       } else if (v === 0) {
         this.restore()
       }
+    },
+    isBookmark(isBookmark) {
+      // this.isFixed = isBookmark
+      if (isBookmark) {
+        this.color = BLUE
+        this.isFixed = true
+      } else {
+        this.color = WHITE
+        this.isFixed = false
+      }
     }
   },
-  isBookmark(isBookmark) {
-    this.isFixed = isBookmark
-    if (isBookmark) {
-      this.color = BLUE
-    } else {
-      this.color = WHITE
-    }
-  },
+
   data() {
     return {
       text: "",
@@ -88,11 +91,8 @@ export default {
       const cfiend = currentLocation.end.cfi.replace(/.*!/, '').replace(/\)$/, '')
       // console.log(currentLocation, cfibase, cfistart, cfiend)
       const cfirange = `${cfibase}!,${cfistart},${cfiend})`
-      // console.log(this.currentBook)
       this.currentBook.getRange(cfirange).then(range => {
-        // console.log(range.toString())
         const text = range.toString().replace(/\s\s/g, '')
-        // console.log(text)
         this.bookmark.push({
           cfi: currentLocation.start.cfi,
           text: text

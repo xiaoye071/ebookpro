@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import Ebook from './views/ebook'
+
 
 Vue.use(Router);
 
@@ -8,7 +8,9 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/ebook "
+      // redirect: "/ebook "
+      redirect: "/store "
+
     },
     {
       path: "/ebook",
@@ -21,6 +23,33 @@ export default new Router({
         {
           path: ":fileName",
           component: () => import("./components/ebook/EbookReader.vue")
+        }
+      ]
+    },
+    {
+      path: "/store",
+      component: () => import("./views/store/index.vue"),
+      redirect: "/store/shelf",
+      children: [
+        {
+          path: 'home',
+          component: () => import("./views/store/bookHome.vue")
+        },
+        {
+          path: 'detail',
+          component: () => import("./views/store/bookDetail.vue")
+        },
+        {
+          path: 'list',
+          component: () => import("./views/store/bookList.vue")
+        },
+        {
+          path: 'shelf',
+          component: () => import("./views/store/bookShelf.vue")
+        },
+        {
+          path: 'category',
+          component: () => import("./views/store/bookCategory.vue")
         }
       ]
     }

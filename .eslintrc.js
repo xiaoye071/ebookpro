@@ -9,6 +9,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     // "eslint-disable-next-line ": "off",
     // "eslint-disable": "off"
+
   },
   parserOptions: {
     parser: "babel-eslint"

@@ -17,6 +17,8 @@ const book = {
     metadata: null,//作者，标题信息
     offsetY: 0,//鼠标可划区域获取
     isBookmark: null,//当前页是否为书签页
+    pagelist: null,//分页列表
+    paginate: ''//分页信息
   },
   mutations: {
     'SET_FILANAME': (state, fileName) => {
@@ -68,6 +70,12 @@ const book = {
     },
     'SET_IS_BOOKMARK': (state, isBookmark) => {
       state.isBookmark = isBookmark
+    },
+    'SET_PAGELIST': (state, pagelist) => {
+      state.pagelist = pagelist
+    },
+    'SET_PAGINATE': (state, paginate) => {
+      state.paginate = paginate
     }
   },
   // actions: {

@@ -15,6 +15,12 @@ export function removeLocalStorage(key) {
 export function clearLocalStorage() {
   return localStorage.clear()
 }
+export function saveBookShelf(shelf) {
+  return setLocalStorage('shelf', shelf)
+}
+export function getBookShelf() {
+  return getLocalStorage('shelf')
+}
 
 //将每个电子书存储在localstorage 中
 export function setBookObject(fileName, key, value) {

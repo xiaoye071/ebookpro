@@ -48,6 +48,7 @@
           :class="{'selected': section === index}"
           @click="displayContent(item.href)"
         >{{item.label}}</span>
+        <!-- <span class="slide-contents-item-page">{{item.page/pagelist.length}}</span> -->
         <span class="slide-contents-item-page">{{item.page}}</span>
       </div>
     </scroll>
@@ -86,7 +87,6 @@ export default {
         this.hideBar()
         if (highlight) {
           this.currentBook.rendition.annotations.highlight(target)
-
         }
       })
     },
